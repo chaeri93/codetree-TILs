@@ -17,7 +17,7 @@ for i in range(n):
 def bfs(v):
     q = deque(v)
     visited = [[-1 for _ in range(n)]  for _ in range(n)]
-    for x, y in virus:
+    for x, y in v:
         visited[x][y] = 0
     m = 0
     while q:
@@ -28,11 +28,12 @@ def bfs(v):
             if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == -1 and board[nx][ny] != 1:
                 visited[nx][ny] = visited[x][y] + 1
                 q.append([nx, ny])
-                m = max(visited[x][y] + 1, m)
+                if board[nx][ny] != 2:
+                    m = max(visited[x][y] + 1, m)
 
     for i in range(n):
         for j in range(n):
-            if visited[i][j] == -1 and board[i][j] != 1:
+            if visited[i][j] == -1 and board[i][j] == 0:
                 return 1e9
     return m
 
