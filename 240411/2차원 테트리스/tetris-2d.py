@@ -24,8 +24,10 @@ def check(board):
         if b == [1, 1, 1, 1]:
             answer += 1
             idx.append(i)
-    for i in idx:
-        board.pop(5 - i)
+    for i in range(len(idx)):
+        board.pop(5 - idx[i])
+        for j in range(len(idx)):
+            idx[j] -= 1
         board.insert(0, [0, 0, 0, 0])
     return board, len(idx)
 
