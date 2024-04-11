@@ -27,7 +27,7 @@ def check(board):
     for i in idx:
         board.pop(5 - i)
         board.insert(0, [0, 0, 0, 0])
-    return board
+    return board, len(idx)
 
 
 for t, x, y in block:
@@ -45,7 +45,9 @@ for t, x, y in block:
     ny = i + dy[t - 1]
     red[x][i] = 1
     red[nx][ny] = 1
-    red = list(map(list, zip(*check(list(map(list, zip(*red)))))))
+    red, k = check(list(map(list, zip(*red))))
+    red = list(map(list, zip(*red)))
+    i += k
     if i < 2:
         red = list(map(list, zip(*clear(list(map(list, zip(*red))), i))))
 
@@ -63,7 +65,8 @@ for t, x, y in block:
     ny = y + dy[t - 1]
     yellow[j][y] = 1
     yellow[nx][ny] = 1
-    yellow = check(yellow)
+    yellow, g = check(yellow)
+    j += g
     if j < 2:
         yellow = clear(yellow, j)
 
