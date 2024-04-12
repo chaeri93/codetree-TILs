@@ -10,6 +10,11 @@ alarm = [True for i in range(n+1)]
 parent = {0: [], }
 depth = {0: [0], }
 
+if n % 2 ==0:
+    max_depth = n
+else:
+    max_depth = n +1
+
 
 def make_depth(parent):
     depth[1] = parent[0]
@@ -18,7 +23,7 @@ def make_depth(parent):
         original = depth[cnt]
         if original is None:
             continue
-        if n in original:
+        if cnt > max_depth//2 - 2:
             break
         tmp = []
         for i in original:
@@ -31,7 +36,6 @@ def make_depth(parent):
 
 
 def make_parent(parents):
-    # print(parents)
     for i in set(parents):
         parent[i] = []
     for i, p in enumerate(parents):
@@ -72,7 +76,11 @@ for order in orders:
             for key, val in depth.items():
                 if child in val:
                     d_c = key
-            lev = abs(d - d_c)
+            try:
+                lev = abs(d - d_c)
+            except NameError:
+                print(child)
+                print(depth)
             if lev <= authority[child]:
                 tmp = child
                 alarm_flag = alarm[child]
